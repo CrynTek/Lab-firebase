@@ -1,26 +1,53 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>วันที่</h1>
+    <input v-model="date" type="date" />
+    <h1>ชื่อ-นามสกุล</h1>
+    <input v-model="name" type="text" />
+    <h1>ผลตรวจ ATK</h1>
+    <input v-model="atk" type="checkbox" />
+    <h1>หมายเลขโทรศัพท์</h1>
+    <input v-model="tel" type="text" />
+    <h1>Email</h1>
+    <input v-model="email" type="email" />
     <button @click="addData()">เพิ่มข้อมูล</button>
     <button @click="readData()">อ่านข้อมูล</button>
-    <button @click="deleteDoc()">ลบข้อมูล</button>
+    <!-- <button @click="deleteDoc()">ลบข้อมูล</button> -->
 
-    <h3>{{ csDoc }}</h3>
-    วันที่<input v-model="date" type="text" /> ชื่อ-นามสกุล<input
-      v-model="name"
-      type="text"
-    />
-    ผลตรวจ ATK<input v-model="atk" type="text" /> หมายเลขโทรศัพท์<input
-      v-model="tel"
-      type="text"
-    />
-    Email<input v-model="email" type="text" />
+    <!-- <h3>{{ csDoc }}</h3> -->
+
+    <tbody>
+      <tr>
+        <th>Date</th>
+        <th>Name</th>
+        <th>ATK</th>
+        <th>TEL.</th>
+        <th>Email</th>
+      </tr>
+      <tr v-for="(data, index) in csDoc" :key="index">
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+          {{ data.date }}
+        </td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+          {{ data.name }}
+        </td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+          {{ data.atk }}
+        </td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+          {{ data.tel }}
+        </td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+          {{ data.email }}
+        </td>
+      </tr>
+    </tbody>
   </div>
 </template>
 
 <script>
 import { collection, addDoc, getDocs } from "firebase/firestore";
-import { doc, deleteDoc } from "firebase/firestore";
+// import { doc, deleteDoc } from "firebase/firestore";
 import db from "../plugins/firebaseInit";
 export default {
   data() {
@@ -28,7 +55,7 @@ export default {
       csDoc: [],
       date: "",
       name: "",
-      atk: "",
+      atk: false,
       tel: "",
       email: "",
     };
@@ -53,12 +80,12 @@ export default {
       querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);
         // this.csDoc.push(doc.data());
-        this.csDoc.push({ id: doc.id, data: doc.data() });
+        this.csDoc.push(doc.data());
       });
     },
-    async deleteDoc() {
-      await deleteDoc(doc(db, "users", ""));
-    },
+    // async deleteDoc() {
+    //   await deleteDoc(doc(db, "users", ""));
+    // },
   },
 };
 </script>
