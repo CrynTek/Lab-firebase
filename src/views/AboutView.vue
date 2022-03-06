@@ -19,14 +19,20 @@
           <option>ผลเป็นลบ(ไม่ติดเชื้อ)</option>
         </select>
       </div>
-      <h1>วันที่</h1>
-      <input v-model="date" type="date" />
-      <h1>หมายเลขโทรศัพท์</h1>
-      <input v-model="tel" type="text" />
-      <h1>Email</h1>
-      <input v-model="email" type="email" />
+      <div class="mt-1">
+        <h1>วันที่</h1>
+        <input v-model="date" type="date" />
+      </div>
+      <div class="mt-1">
+        <h1>หมายเลขโทรศัพท์</h1>
+        <input v-model="tel" type="text" />
+      </div>
+      <div class="mt-1">
+        <h1>Email</h1>
+        <input v-model="email" type="email" />
+      </div>
 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2">
         <button @click="addData()" class="btn btn-outline-warning">
           บันทึกข้อมูล
         </button>
