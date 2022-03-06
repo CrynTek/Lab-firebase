@@ -37,9 +37,9 @@
           บันทึกข้อมูล
         </button>
 
-        <button @click="readData()" class="btn btn-outline-info">
+        <!-- <button @click="readData()" class="btn btn-outline-info">
           แสดงข้อมูล
-        </button>
+        </button> -->
       </div>
     </div>
     <table class="table">
@@ -96,6 +96,9 @@ export default {
       tel: "",
       email: "",
     };
+  },
+  mounted(){
+    this.readData()
   },
   methods: {
     async addData() {
