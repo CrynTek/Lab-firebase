@@ -97,8 +97,8 @@ export default {
       email: "",
     };
   },
-  mounted(){
-    this.readData()
+  mounted() {
+    this.readData();
   },
   methods: {
     async addData() {
@@ -112,6 +112,7 @@ export default {
           email: this.email,
         });
         console.log("Document written with ID: ", docRef.id);
+        this.readData();
       } catch (e) {
         console.error("Error adding document: ", e);
       }
