@@ -14,7 +14,8 @@ import { RouterLink, RouterView } from "vue-router";
     <ul class="nav justify-content-center">
       <li class="nav-item"><RouterLink to="/">Home</RouterLink>|</li>
       <li class="nav-item">
-        <RouterLink to="/about">Register</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
       </li>
     </ul>
   </header>

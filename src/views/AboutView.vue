@@ -37,11 +37,13 @@
           บันทึกข้อมูล
         </button>
 
-        <!-- <button @click="readData()" class="btn btn-outline-info">
+        <button @click="readData()" class="btn btn-outline-info">
           แสดงข้อมูล
-        </button> -->
+        </button>
       </div>
     </div>
+    <h1>{{ uemail }}</h1>
+    <h1>{{ uid }}</h1>
     <table class="table">
       <thead>
         <tr>
@@ -83,8 +85,11 @@
 
 <script>
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../plugins/firebaseInit";
 
-import db from "../plugins/firebaseInit";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../plugins/firebaseInit";
+
 export default {
   data() {
     return {
@@ -95,12 +100,36 @@ export default {
       atk: "",
       tel: "",
       email: "",
+      uemail: "",
+      uid: "",
     };
   },
   mounted() {
-    this.readData();
+    this.checkLogin();
   },
+  // mounted() {
+  //   this.readData();
+  // },
   methods: {
+    checkLogin() {
+      // const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          console.log(uid);
+          // ...แสดง user:email,uid ในหน้าจอ
+          this.uemail = user.email;
+          this.uid = user.uid;
+        } else {
+          // User is signed out
+          // ...กรณีlogin ไม่ได้ให้เปลี่ยนไปหน้า login
+          alert("Please Login First");
+          this.$router.push("/login");
+        }
+      });
+    },
     async addData() {
       try {
         const docRef = await addDoc(collection(db, "users"), {
@@ -112,7 +141,7 @@ export default {
           email: this.email,
         });
         console.log("Document written with ID: ", docRef.id);
-        this.readData();
+        // this.readData();
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -143,7 +172,7 @@ export default {
   position: relative;
   z-index: 1;
   border-top: 5px solid;
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  /* -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); */
 }
 h1,
 label {
